@@ -1,0 +1,23 @@
+{
+    "appId": "XiaoHongShu_OBS",
+    "productName": "XiaoHongShu_OBS",
+    "copyright": "ShiroSaki Tech",
+    "win": {
+        "artifactName": "${productName}_Setup_${version}.${ext}",
+        "target": "nsis",
+        "icon": "favicon.ico",
+        "publisherName": "ShiroSaki"
+    },
+    "nsis": {
+        "installerIcon": "favicon.ico",
+        "uninstallerIcon": "favicon.ico",
+        "oneClick": false,
+        "perMachine": true,
+        "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+        "provider": "generic",
+        "url": "https://baidu.com",
+        "useMultipleRangeRequest": false
+    }
+}
