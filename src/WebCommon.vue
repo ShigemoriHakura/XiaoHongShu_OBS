@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const econfig = new eConfig()
 const UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) live-helper/2.6.6 Chrome/89.0.4389.128 Electron/12.0.11 Safari/537.36 env/production platform/win32 appname/xhs-live"
-const DeviceId = "70:12:c2:fb:89:22"
+const DeviceId = "70:12:c2:fb:17:22"
 let Base64 = require('js-base64').Base64
 
 //主业务逻辑，处理全局登录等属性。

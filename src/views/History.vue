@@ -21,6 +21,10 @@
                   <td>0.1.0</td>
                   <td>初版，主要代码完善中。</td>
                 </tr>
+                <tr>
+                  <td>0.1.1</td>
+                  <td>修改封面比例为3:4，加入直播公告</td>
+                </tr>
               </tbody>
             </template>
           </v-simple-table>

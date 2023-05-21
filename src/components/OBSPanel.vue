@@ -29,6 +29,8 @@
           <v-container v-if="$store.state.WebCommonCache.sid !='' && $store.state.WebCommonCache.sid != null">
             <v-text-field v-model="obsName" type="text" label="直播间名">
             </v-text-field>
+            <v-text-field v-model="notice" type="text" label="直播公告">
+            </v-text-field>
             <v-text-field v-model="obsUrl" type="text" label="推流地址">
             </v-text-field>
             <v-text-field v-model="roomId" type="text" label="房间ID" disabled>
@@ -45,8 +47,8 @@
             <v-col cols="12" md="12">
               上传封面：
               <v-btn class="ma-2" elevation="2" color="success" @click="ChangeCover">上传封面</v-btn>
-              <v-image-input v-model="liveCover" :image-quality="0.25" clearable image-format="jpeg" :imageHeight="264"
-                :imageWidth="470" :fullWidth="true" :fullHeight="true" :hideActions="false" />
+              <v-image-input v-model="liveCover" :image-quality="0.25" clearable image-format="jpeg" :imageHeight="470"
+                :imageWidth="352.5" :fullWidth="true" :fullHeight="true" :hideActions="false" />
             </v-col>
           </v-row>
         </v-tab-item>
@@ -85,6 +87,7 @@ export default {
     roomId: "",
     cover: "",
     liveCover: "",
+    notice: "",
   }),
   beforeDestroy() {
     window.clearInterval(this.checkTimer)
@@ -134,6 +137,7 @@ export default {
       if (resJson.result == 0) {
         this.showSnackbar("登录成功，" + resJson.data.nickname)
         this.$store.state.WebCommonCache.sid = resJson.data.access_token
+        this.$store.state.WebCommonCache.cookies = res.headers["set-cookie"]
         this.$WebCommon.saveNewData(this)
       } else {
         this.showSnackbar(resJson.msg)
@@ -141,10 +145,11 @@ export default {
     },
     LogOut() {
       this.$store.state.WebCommonCache.sid = ""
+      this.$store.state.WebCommonCache.cookies = ""
       this.$WebCommon.saveNewData(this)
     },
     async LivePre() {
-      var url = "https://robs.xiaohongshu.com/api/sns/live/pre"
+      var url = "https://robs.xiaohongshu.com/api/sns/live/pre?build=2200002&platform=pc&system_version=10.0.22000&cpu_model=12th+Gen+Intel(R)+Core(TM)+i5-12400&gpu=ANGLE+(NVIDIA+GeForce+RTX+3070+Direct3D11+vs_5_0+ps_5_0)&is_win_7=false"
       var res = await this.$WebCommon.getHTTPResult(
         url,
         this.$store.state.WebCommonCache.sid
@@ -158,14 +163,14 @@ export default {
     },
     async LiveStart() {
       if (this.roomId != "") {
-        var url = "https://robs.xiaohongshu.com/api/sns/live/" + this.roomId + "/start"
+        var url = "https://robs.xiaohongshu.com/api/sns/live/" + this.roomId + "/start?build=2200002&platform=pc&system_version=10.0.22000&cpu_model=12th+Gen+Intel(R)+Core(TM)+i5-12400&gpu=ANGLE+(NVIDIA+GeForce+RTX+3070+Direct3D11+vs_5_0+ps_5_0)&is_win_7=false"
         //var url = "https://httpbin.org/anything"
         var res = await this.$WebCommon.postJsonHTTPResult(
           url,
           this.$store.state.WebCommonCache.sid,
           {
             name: this.obsName,
-            notice: 1,
+            notice: this.notice,
             is_distribute: true,
             cover: this.cover,
             lesson_id: 0
